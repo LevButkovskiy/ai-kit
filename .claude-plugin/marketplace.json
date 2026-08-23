@@ -1,0 +1,10 @@
+{
+  "name": "bulevo",
+  "owner": { "name": "Lev" },
+  "plugins": [
+    {
+      "name": "ts-core",
+      "source": "./plugins/ts-core"
+    }
+  ]
+}
