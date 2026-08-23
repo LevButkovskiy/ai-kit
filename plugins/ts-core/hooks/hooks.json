@@ -1,0 +1,31 @@
+{
+  "description": "Auto-format edited files and enforce commit gates",
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"${CLAUDE_PLUGIN_ROOT}\"/scripts/format.sh",
+            "timeout": 30
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "if": "Bash(git commit *)",
+            "command": "bash \"${CLAUDE_PLUGIN_ROOT}\"/scripts/gate.sh",
+            "timeout": 300,
+            "statusMessage": "Running commit gates..."
+          }
+        ]
+      }
+    ]
+  }
+}
