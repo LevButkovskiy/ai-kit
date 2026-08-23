@@ -1,6 +1,6 @@
 {
   "name": "ts-core",
   "description": "Commit gates, code reviewer and auto-formatting for TypeScript/JavaScript projects",
-  "version": "0.8.0",
+  "version": "0.9.0",
   "author": { "name": "Lev" }
 }

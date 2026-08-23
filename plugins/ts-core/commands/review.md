@@ -15,11 +15,20 @@ is still a new service, and is often the most important thing to review.
 If there are no tracked changes and no untracked files, say `No changes` and stop.
 
 ## Step 2: filter to reviewable files
-Exclude from consideration: lockfiles, build artifacts, `*.tsbuildinfo`, `dist/`,
-`build/`, `coverage/`, `.gitignore`, generated files, and anything git reports as binary.
+Exclude only files matching this list. It is exhaustive — do not add categories to it,
+and do not exclude a file because you judge it unimportant, non-code, config-only,
+trivial, or "not application logic". If it is not on this list, it is reviewable.
+
+- lockfiles (`package-lock.json`, `pnpm-lock.yaml`, `yarn.lock`)
+- `*.tsbuildinfo`
+- `dist/`, `build/`, `coverage/`, `node_modules/`
+- files git reports as binary
+
+Everything else — including config files, CI files, dotfiles, and one-line changes —
+goes to the reviewers.
 
 If nothing remains, report `No reviewable changes`, list what was excluded in one line,
-and stop. Do not report PASS — nothing was reviewed.
+and stop.
 
 ## Step 3: select reviewers
 Based on the remaining files only:
