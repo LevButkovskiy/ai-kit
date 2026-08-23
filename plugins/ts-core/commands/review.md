@@ -5,8 +5,14 @@ description: Run the applicable reviewers on uncommitted changes and report a co
 Review the current uncommitted changes.
 
 ## Step 1: look at the diff
-Run `git diff HEAD --stat` and `git diff HEAD`.
-If there are no changes at all, say `No changes` and stop.
+Run:
+- `git status --short` — to see untracked and staged files
+- `git diff HEAD --stat` and `git diff HEAD` — tracked changes
+- for each untracked file listed by `git status`, read it directly
+
+Untracked files are part of the change. A new service that has not been `git add`ed
+is still a new service, and is often the most important thing to review.
+If there are no tracked changes and no untracked files, say `No changes` and stop.
 
 ## Step 2: filter to reviewable files
 Exclude from consideration: lockfiles, build artifacts, `*.tsbuildinfo`, `dist/`,
@@ -29,9 +35,8 @@ State which ones you selected and why, one line each.
 
 ## Step 4: run them
 Invoke all selected reviewers **in parallel**, in a single message.
-Give each the same instruction: review the uncommitted changes.
-Do not review the code yourself. Do not pre-filter what you send them.
-Do not summarise the diff for them — they read it themselves.
+Instruct each: review the uncommitted changes, including untracked files.
+List the untracked file paths explicitly in the instruction so they read them.
 
 ## Step 5: combine
 Wait for all of them. Then:
