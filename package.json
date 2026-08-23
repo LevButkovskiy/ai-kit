@@ -1,22 +1,11 @@
 {
   "name": "ai-kit",
-  "version": "1.0.0",
-  "main": "index.js",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Portable Claude Code configuration: gates, reviewers, hooks",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "fmt": "prettier --write \"**/*.json\" \"**/*.md\""
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/LevButkovskiy/ai-kit.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/LevButkovskiy/ai-kit/issues"
-  },
-  "homepage": "https://github.com/LevButkovskiy/ai-kit#readme",
-  "description": "",
   "devDependencies": {
     "prettier": "^3.9.6"
   }
