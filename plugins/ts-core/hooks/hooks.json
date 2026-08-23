@@ -35,6 +35,16 @@
             "command": "echo 'Bypassing commit gates is not allowed. Fix the failures instead.' >&2; exit 2"
           }
         ]
+      },
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "if": "Edit(**/.claude/gates.json)",
+            "command": "echo 'gates.json is owned by the developer, not the agent. Ask the user to change it.' >&2; exit 2"
+          }
+        ]
       }
     ]
   }
