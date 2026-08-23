@@ -1,5 +1,4 @@
 {
-  "description": "Auto-format edited files and enforce commit gates",
   "hooks": {
     "PostToolUse": [
       {
