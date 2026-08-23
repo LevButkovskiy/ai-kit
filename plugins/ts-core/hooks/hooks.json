@@ -25,6 +25,16 @@
             "statusMessage": "Running commit gates..."
           }
         ]
+      },
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "if": "Bash(git commit *--no-verify*)",
+            "command": "echo 'Bypassing commit gates is not allowed. Fix the failures instead.' >&2; exit 2"
+          }
+        ]
       }
     ]
   }
