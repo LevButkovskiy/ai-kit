@@ -27,12 +27,14 @@ Verify with `/hooks` — you should see hooks sourced from `Plugin Hooks`.
 ## What you get
 
 **Automatic**
+
 - Formats every edited `.ts/.tsx/.js/.jsx` file with prettier (skipped if prettier is not installed)
-- Blocks `git commit` when the project's gates fail
+- Runs the project's gates when the agent finishes a turn, and again before `git commit`
 - Blocks `git commit --no-verify`
 - Blocks the agent from editing `.claude/gates.json`
 
 **On demand**
+
 - `/ts-core:review` — runs the applicable reviewers in parallel, reports one combined verdict
 - `@reviewer` — correctness
 - `@security-reviewer` — authorization, injection, secrets, data exposure
@@ -51,13 +53,33 @@ Gates are off until the project defines them. Create `.claude/gates.json`:
 }
 ```
 
+Several repositories in one workspace:
+
+```json
+{
+  "commands": [
+    { "name": "api-types", "cmd": "pnpm typecheck", "cwd": "crm-api" },
+    { "name": "web-types", "cmd": "pnpm typecheck", "cwd": "crm-web" }
+  ]
+}
+```
+
+Fields:
+
 - `name` — short and stable; it lands in `metrics.jsonl` and becomes your statistics
 - `cmd` — any shell command; passes on exit code 0
-- Order matters: the run stops at the first failure, so put fast checks first
+- `cwd` — directory to run the command in, relative to the session root. Optional.
+- `when` — array of path prefixes; the command runs only if something changed under
+  one of them. Optional. Defaults to `[cwd]` when `cwd` is set, otherwise always runs.
+
+Order matters: the run stops at the first failure, so put fast checks first.
+
+Changed paths are collected across every git repository under the session root, so the
+same config shape works for a monorepo and for several repositories side by side.
 
 Commit `gates.json`. Add `.claude/metrics.jsonl` to `.gitignore`.
 
-Without this file the kit still formats and reviews — it just does not block commits.
+Without this file the kit still formats and reviews — it just does not block anything.
 
 ## Metrics
 
@@ -92,8 +114,12 @@ from the documented schemas. Run it after a Claude Code update.
 whether the script ran and what it returned. Most common cause on Windows: `jq` not on
 the PATH of the Claude Code process.
 
-**Gate always fails** — run the command from `gates.json` manually in the project root.
-A gate that fails for reasons unrelated to the code is worse than no gate.
+**Gate always fails** — run the command from `gates.json` manually, from the directory
+its `cwd` points at. A gate that fails for reasons unrelated to the code is worse than
+no gate.
+
+**Gate never runs** — check that `when` (or `cwd`) matches the paths that actually
+changed. Paths are relative to the session root, not to the repository.
 
 **Command not found after update** — `/plugin marketplace update` then `/reload-plugins`.
 
@@ -113,4 +139,4 @@ plugins/ts-core/                  the plugin
 ## Conventions
 
 Everything a model reads is in English: agent bodies, skill files, manifest
-descriptions, hook messages. Russian only in this README and in code comments.
+descriptions, hook messages. Russian only in the localised README and in code comments.
