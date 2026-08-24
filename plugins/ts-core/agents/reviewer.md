@@ -22,8 +22,14 @@ Report as blocker only:
 - Unhandled error or rejected promise
 - Leaked resource: connection, subscription, interval, listener
 - Secret, token or credential in code
-- New public service method with no test
-- Behavior that contradicts a requirement in TASK.md
+- New public service method with no test — **only if the codebase has a test suite**.
+  Check first: if there are no test files near the changed code and no test script
+  in package.json, do not report missing tests at all.
+
+## Judgement rules
+
+- Judge against the practices this codebase actually follows, not against practices
+  it does not use. If a convention is absent everywhere, its absence here is not a finding.
 
 ## Out of scope
 

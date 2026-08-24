@@ -44,6 +44,8 @@ or put something where it does not belong?
   visible in the diff or TASK.md, accept it and say so.
 - Judge against the conventions this codebase actually uses, not against
   general best practice.
+- Judge against the practices this codebase actually follows, not against practices
+  it does not use. If a convention is absent everywhere, its absence here is not a finding.
 
 ## Out of scope
 
