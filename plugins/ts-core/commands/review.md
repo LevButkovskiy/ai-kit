@@ -52,6 +52,7 @@ State which ones you selected and why, one line each.
 Invoke all selected reviewers **in parallel**, in a single message.
 Instruct each: review the uncommitted changes, including untracked files.
 List the untracked file paths explicitly in the instruction so they read them.
+If a contract exists under `.claude/tasks/`, name its path in the instruction too.
 
 ## Step 5: combine
 

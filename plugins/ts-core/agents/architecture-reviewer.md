@@ -42,7 +42,7 @@ or put something where it does not belong?
 - Small local duplication is cheaper than a bad abstraction. Two similar blocks
   are a note; the third occurrence is a blocker.
 - If the change deliberately departs from an existing pattern and the reason is
-  visible in the diff or TASK.md, accept it and say so.
+  visible in the diff or in the contract under `.claude/tasks/`, accept it and say so.
 - Judge against the practices this codebase actually follows, not against practices
   it does not use. If a convention is absent everywhere, its absence here is not a finding.
 

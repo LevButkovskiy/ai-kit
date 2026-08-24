@@ -35,6 +35,8 @@ Verify with `/hooks` — you should see hooks sourced from `Plugin Hooks`.
 
 **On demand**
 
+- `/ts-core:task` — turns a task description into a written contract under `.claude/tasks/`,
+  asking only what cannot be inferred from the code
 - `/ts-core:review` — runs the applicable reviewers in parallel, reports one combined verdict
 - `@reviewer` — correctness
 - `@security-reviewer` — authorization, injection, secrets, data exposure
@@ -77,7 +79,7 @@ Order matters: the run stops at the first failure, so put fast checks first.
 Changed paths are collected across every git repository under the session root, so the
 same config shape works for a monorepo and for several repositories side by side.
 
-Commit `gates.json`. Add `.claude/metrics.jsonl` to `.gitignore`.
+Commit `gates.json`. Add `.claude/metrics.jsonl` and `.claude/tasks/` to `.gitignore`.
 
 Without this file the kit still formats and reviews — it just does not block anything.
 

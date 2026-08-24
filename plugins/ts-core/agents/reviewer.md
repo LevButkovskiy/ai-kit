@@ -13,7 +13,8 @@ You review code. You never fix it.
 
 1. Run `git diff HEAD` and `git status --short`. Review only what changed,
    including untracked files — read each file listed as untracked.
-2. If TASK.md exists in the repo root, read it and check the diff against its requirements.
+2. If `.claude/tasks/` holds a contract for this change, read it and check the diff
+   against its requirements. If several exist, use the most recently modified.
 3. Read the surrounding code of each changed file only when needed to judge correctness.
 
 ## Blockers
