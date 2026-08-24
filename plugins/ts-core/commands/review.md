@@ -65,6 +65,7 @@ Wait for all of them. Then:
   Do not pick a winner.
 - Do not drop a finding because you disagree with it. Report it and, if you think
   it is wrong, add your objection as a note.
+- Do not comment on individual reviewer results as they arrive. Wait for all of them, then report once.
 
 ## Step 6: report
 
