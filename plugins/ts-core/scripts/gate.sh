@@ -44,10 +44,18 @@ matches() {
 
 LOG=.claude/metrics.jsonl
 TS=$(date -Iseconds)
-BR=$(git rev-parse --abbrev-ref HEAD 2>/dev/null || echo "-")
-log() { echo "{\"ts\":\"$TS\",\"branch\":\"$BR\",\"gate\":\"$1\",\"result\":\"$2\"}" >> "$LOG"; }
+
+branch_of() { git -C "$ROOT/$1" rev-parse --abbrev-ref HEAD 2>/dev/null || echo "-"; }
+
+# log <gate> <result> <cwd> <ms>
+log() {
+  echo "{\"ts\":\"$TS\",\"branch\":\"$(branch_of "$3")\",\"cwd\":\"$3\",\"gate\":\"$1\",\"result\":\"$2\",\"ms\":$4}" >> "$LOG"
+}
+
+now_ms() { date +%s%3N 2>/dev/null || echo $(($(date +%s) * 1000)); }
 
 RAN=0
+STARTED=$(now_ms)
 COUNT=$(jq '.commands | length' "$CFG")
 for ((i = 0; i < COUNT; i++)); do
   NAME=$(jq -r ".commands[$i].name" "$CFG")
@@ -58,13 +66,17 @@ for ((i = 0; i < COUNT; i++)); do
   matches "$WHEN" || continue
   RAN=1
 
+  CMD_STARTED=$(now_ms)
   if ! (cd "$ROOT/$DIR" && eval "$CMD") > /tmp/gate.out 2>&1; then
-    log "$NAME" fail
+    log "$NAME" fail "$DIR" $(($(now_ms) - CMD_STARTED))
     echo "Gate '$NAME' failed. Fix the errors below, then commit again:" >&2
     tail -25 /tmp/gate.out >&2
     exit 2
   fi
+  log "$NAME" pass "$DIR" $(($(now_ms) - CMD_STARTED))
 done
 
-if [ "$RAN" -eq 1 ]; then log all pass; fi
+if [ "$RAN" -eq 1 ]; then
+  log all pass "." $(($(now_ms) - STARTED))
+fi
 exit 0
