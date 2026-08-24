@@ -5,6 +5,10 @@ cd "$CLAUDE_PROJECT_DIR" 2>/dev/null || exit 0
 CFG=.claude/gates.json
 [ -f "$CFG" ] || exit 0
 
+HOOK_IN=$(cat)
+SESSION=$(echo "$HOOK_IN" | jq -r '.session_id // "-"' 2>/dev/null)
+EVENT=$(echo "$HOOK_IN" | jq -r '.hook_event_name // "-"' 2>/dev/null)
+
 if ! command -v jq >/dev/null 2>&1; then
   echo "Commit gates are configured but jq is not installed." >&2
   exit 2
@@ -49,7 +53,7 @@ branch_of() { git -C "$ROOT/$1" rev-parse --abbrev-ref HEAD 2>/dev/null || echo 
 
 # log <gate> <result> <cwd> <ms>
 log() {
-  echo "{\"ts\":\"$TS\",\"branch\":\"$(branch_of "$3")\",\"cwd\":\"$3\",\"gate\":\"$1\",\"result\":\"$2\",\"ms\":$4}" >> "$LOG"
+  echo "{\"ts\":\"$TS\",\"session\":\"$SESSION\",\"event\":\"$EVENT\",\"branch\":\"$(branch_of "$3")\",\"cwd\":\"$3\",\"gate\":\"$1\",\"result\":\"$2\",\"ms\":$4}" >> "$LOG"
 }
 
 now_ms() { date +%s%3N 2>/dev/null || echo $(($(date +%s) * 1000)); }

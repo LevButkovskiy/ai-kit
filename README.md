@@ -92,7 +92,14 @@ Every gate run appends a line to `.claude/metrics.jsonl`:
 jq -r .result .claude/metrics.jsonl | sort | uniq -c
 
 # which gate fails most
-jq -r 'select(.result=="fail") | .gate' .claude/metrics.jsonl | sort | uniq -c
+jq -r 'select(.result=="fail") | "\(.cwd) \(.gate)"' .claude/metrics.jsonl | sort | uniq -c
+
+# how many gate runs per session — high counts mean the agent kept hitting the gate
+jq -r 'select(.gate=="all") | .session' .claude/metrics.jsonl | sort | uniq -c | sort -rn
+
+# average duration per gate
+jq -r 'select(.gate!="all") | "\(.cwd)/\(.gate) \(.ms)"' .claude/metrics.jsonl \
+  | awk '{s[$1]+=$2; n[$1]++} END {for (k in s) printf "%-30s %6d ms\n", k, s[k]/n[k]}'
 ```
 
 ## Updating the kit

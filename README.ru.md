@@ -93,7 +93,14 @@
 jq -r .result .claude/metrics.jsonl | sort | uniq -c
 
 # какой гейт падает чаще
-jq -r 'select(.result=="fail") | .gate' .claude/metrics.jsonl | sort | uniq -c
+jq -r 'select(.result=="fail") | "\(.cwd) \(.gate)"' .claude/metrics.jsonl | sort | uniq -c
+
+# сколько прогонов на сессию — большие числа значат, что агент долго упирался в гейт
+jq -r 'select(.gate=="all") | .session' .claude/metrics.jsonl | sort | uniq -c | sort -rn
+
+# среднее время по гейтам
+jq -r 'select(.gate!="all") | "\(.cwd)/\(.gate) \(.ms)"' .claude/metrics.jsonl \
+  | awk '{s[$1]+=$2; n[$1]++} END {for (k in s) printf "%-30s %6d ms\n", k, s[k]/n[k]}'
 ```
 
 ## Обновление кита
