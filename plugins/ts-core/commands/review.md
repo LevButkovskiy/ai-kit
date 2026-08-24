@@ -67,6 +67,8 @@ Wait for all of them. Then:
 - Do not drop a finding because you disagree with it. Report it and, if you think
   it is wrong, add your objection as a note.
 - Do not comment on individual reviewer results as they arrive. Wait for all of them, then report once.
+- If a reviewer returned without a verdict line (PASS or NEEDS_WORK), ask it to finish
+  its report before combining. Do not infer a verdict from its findings.
 
 ## Step 6: report
 

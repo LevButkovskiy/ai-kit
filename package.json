@@ -1,10 +1,11 @@
 {
   "name": "ai-kit",
-  "version": "0.17.0",
+  "version": "0.18.0",
   "private": true,
   "description": "Portable Claude Code configuration: gates, reviewers, hooks",
   "scripts": {
-    "fmt": "prettier --write \"**/*.json\" \"**/*.md\""
+    "fmt": "prettier --write \"**/*.json\" \"**/*.md\"",
+    "bump": "node scripts/bump.js"
   },
   "devDependencies": {
     "prettier": "^3.9.6"
