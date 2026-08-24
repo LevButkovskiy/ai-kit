@@ -5,14 +5,14 @@ cd "$CLAUDE_PROJECT_DIR" 2>/dev/null || exit 0
 CFG=.claude/gates.json
 [ -f "$CFG" ] || exit 0
 
-HOOK_IN=$(cat)
-SESSION=$(echo "$HOOK_IN" | jq -r '.session_id // "-"' 2>/dev/null)
-EVENT=$(echo "$HOOK_IN" | jq -r '.hook_event_name // "-"' 2>/dev/null)
-
 if ! command -v jq >/dev/null 2>&1; then
   echo "Commit gates are configured but jq is not installed." >&2
   exit 2
 fi
+
+HOOK_IN=$(cat)
+SESSION=$(echo "$HOOK_IN" | jq -r '.session_id // "-"' 2>/dev/null)
+EVENT=$(echo "$HOOK_IN" | jq -r '.hook_event_name // "-"' 2>/dev/null)
 
 ROOT=$(pwd)
 
