@@ -30,8 +30,19 @@ answer would produce different code. Typical real gaps:
 Discard any gap where a wrong guess is cheap to fix later.
 
 ## Step 3: ask
-Ask the remaining questions in one message, numbered, at most five.
-For each, state the default you will use if the user does not answer.
+Ask using the AskUserQuestion tool, not plain text.
+
+Constraints of the tool: at most 4 questions per call, 2-4 options each,
+`header` no longer than 12 characters, question text ending in a question mark.
+Never add an "Other" option — the UI adds it automatically.
+
+Put the option you would choose by default first and suffix its label with
+"(Recommended)". Each option's description must spell out the resulting shape —
+field names, types, UI labels — so the user can judge without reading code.
+
+If more than 4 gaps survived Step 2, keep the 4 whose answers change the most code
+and state the defaults you assumed for the rest in the contract.
+
 If there are no real gaps, say so and go to Step 4.
 
 ## Step 4: write the contract
