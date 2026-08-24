@@ -69,11 +69,17 @@ Wait for all of them. Then:
 - Do not comment on individual reviewer results as they arrive. Wait for all of them, then report once.
 - If a reviewer returned without a verdict line (PASS or NEEDS_WORK), ask it to finish
   its report before combining. Do not infer a verdict from its findings.
+- Carry the `Contract: N/M` line through from `reviewer` if it reported one.
+- Keep `Contract gaps` as its own section. Do not merge them into blockers,
+  and do not merge them into notes.
 
 ## Step 6: report
 
 Line 1: `PASS` or `NEEDS_WORK — N blockers`.
+Line 2: `Contract: N/M`, if a contract was checked.
+
 Then blockers grouped by file, each as `path:line — problem — smallest fix [reviewer]`.
+Then `Contract gaps`, each as `<item> — new|pre-existing — what is missing`.
 Then notes, one line each.
 Then: `Reviewers run: <names>`.
 

@@ -45,6 +45,12 @@ or put something where it does not belong?
   visible in the diff or in the contract under `.claude/tasks/`, accept it and say so.
 - Judge against the practices this codebase actually follows, not against practices
   it does not use. If a convention is absent everywhere, its absence here is not a finding.
+- Judge only what this change introduces or modifies. If a problem exists in code the
+  diff does not touch, it is out of scope — do not report it, not even as a note.
+  The one exception: the change makes an existing problem materially worse or newly
+  reachable. Then say so and name the line in the diff that does it.
+- Unmet contract items are reported by `reviewer`, not by you. If you notice one,
+  mention it in a note and move on.
 
 ## Out of scope
 
