@@ -38,18 +38,22 @@ If there are no real gaps, say so and go to Step 4.
 Write to `.claude/tasks/<slug>.md`, where slug is derived from the task name.
 Create the directory if it does not exist. Report the path you used.
 
-    # Task: <name>
+Use exactly this structure:
 
-    ## Done when
-    - [ ] <each gate command from .claude/gates.json, exit code 0>
-    - [ ] <one checkable behaviour per line, phrased so it can be verified by running something>
+```markdown
+# Task: <name>
 
-    ## Decisions
-    - <each answer from Step 3, one line>
+## Done when
+- [ ] <each gate command from .claude/gates.json, exit code 0>
+- [ ] <one checkable behaviour per line, phrased so it can be verified by running something>
 
-    ## Boundaries
-    Touch only: <paths>
-    Do not touch: <paths>
+## Decisions
+- <each answer from Step 3, one line>
+
+## Boundaries
+Touch only: <paths>
+Do not touch: <paths>
+```
 
 Every line under "Done when" must be checkable by running a command or performing a
 concrete action. "Works correctly" and "code is clean" are not acceptable.
