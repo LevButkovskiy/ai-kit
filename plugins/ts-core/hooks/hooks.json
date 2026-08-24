@@ -45,6 +45,18 @@
           }
         ]
       }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"${CLAUDE_PLUGIN_ROOT}\"/scripts/gate.sh",
+            "timeout": 300,
+            "statusMessage": "Verifying before finishing..."
+          }
+        ]
+      }
     ]
   }
 }
