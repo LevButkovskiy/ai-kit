@@ -44,7 +44,7 @@ matches() {
 
 LOG=.claude/metrics.jsonl
 TS=$(date -Iseconds)
-BR=$(git rev-parse --abbrev-ref HEAD 2>/dev/null)
+BR=$(git rev-parse --abbrev-ref HEAD 2>/dev/null || echo "-")
 log() { echo "{\"ts\":\"$TS\",\"branch\":\"$BR\",\"gate\":\"$1\",\"result\":\"$2\"}" >> "$LOG"; }
 
 RAN=0
@@ -66,5 +66,5 @@ for ((i = 0; i < COUNT; i++)); do
   fi
 done
 
-[ "$RAN" -eq 1 ] && log all pass
+if [ "$RAN" -eq 1 ]; then log all pass; fi
 exit 0
