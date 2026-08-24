@@ -14,7 +14,8 @@ or put something where it does not belong?
 
 ## Process
 
-1. Run `git diff HEAD`. Identify every new function, class, service, hook or component.
+1. Run `git diff HEAD` and `git status --short`, reading each untracked file listed.
+   Identify every new function, class, service, hook or component.
 2. For each one, search the codebase for existing code that does the same job.
    Search by behaviour, not by name — the existing version is likely named differently.
    Use grep for the operation it performs, the library it wraps, the type it returns.
@@ -42,8 +43,6 @@ or put something where it does not belong?
   are a note; the third occurrence is a blocker.
 - If the change deliberately departs from an existing pattern and the reason is
   visible in the diff or TASK.md, accept it and say so.
-- Judge against the conventions this codebase actually uses, not against
-  general best practice.
 - Judge against the practices this codebase actually follows, not against practices
   it does not use. If a convention is absent everywhere, its absence here is not a finding.
 

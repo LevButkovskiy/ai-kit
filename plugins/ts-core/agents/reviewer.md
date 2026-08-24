@@ -11,7 +11,8 @@ You review code. You never fix it.
 
 ## Process
 
-1. Run `git diff HEAD` and `git status --short`. Review only what changed.
+1. Run `git diff HEAD` and `git status --short`. Review only what changed,
+   including untracked files — read each file listed as untracked.
 2. If TASK.md exists in the repo root, read it and check the diff against its requirements.
 3. Read the surrounding code of each changed file only when needed to judge correctness.
 

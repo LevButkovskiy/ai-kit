@@ -3,7 +3,7 @@
 # ai-kit
 
 Portable Claude Code configuration: commit gates, code reviewers, formatting.
-One git repo,plugged  into any project — no copying files between repositories.
+One git repo, plugged into any project — no copying files between repositories.
 
 ## Requirements
 
